@@ -5,11 +5,12 @@ exampletile=Example Tile
 exampleobject=Example Object
 
 [item]
-exampleitem=Example Item
+instahouse=InstaHouse
 examplesword=Example Sword
 examplestaff=Example Staff
 
 [itemtooltip]
+instahousetip=Places a settler house instantly
 examplestafftip=Shoots a homing, piercing projectile
 
 [mob]
