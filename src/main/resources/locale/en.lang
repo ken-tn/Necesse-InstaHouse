@@ -1,20 +1,5 @@
-[tile]
-exampletile=Example Tile
-
-[object]
-exampleobject=Example Object
-
 [item]
 instahouse=InstaHouse
-examplesword=Example Sword
-examplestaff=Example Staff
 
 [itemtooltip]
 instahousetip=Places a settler house instantly
-examplestafftip=Shoots a homing, piercing projectile
-
-[mob]
-examplemob=Example Mob
-
-[buff]
-examplebuff=Example Buff
