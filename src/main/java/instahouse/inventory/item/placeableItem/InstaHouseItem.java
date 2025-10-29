@@ -40,6 +40,10 @@ public class InstaHouseItem extends PlaceableItem {
 //            placeAndSendPresetToClients(server, HousePreset)
 //        }
 
+        if (this.isSingleUse(player)) {
+            item.setAmount(item.getAmount() - 1);
+        }
+
         return item;
     }
 }
