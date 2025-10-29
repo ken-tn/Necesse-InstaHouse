@@ -1,7 +1,11 @@
 package instahouse;
 
 import instahouse.inventory.item.placeableItem.InstaHouseItem;
+import necesse.engine.GameEventListener;
+import necesse.engine.GameEvents;
+import necesse.engine.events.ServerStartEvent;
 import necesse.engine.modLoader.annotations.ModEntry;
+import necesse.engine.network.server.Server;
 import necesse.engine.registries.*;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
@@ -10,8 +14,18 @@ import static necesse.inventory.recipe.Recipes.ingredientsFromScript;
 
 @ModEntry
 public class InstaHouseMod {
+    public static Server SERVER;
 
     public void init() {
+        // Register ServerStartEvent event listener to obtain server instance
+        GameEvents.addListener(ServerStartEvent.class, new GameEventListener<ServerStartEvent>() {
+            @Override
+            public void onEvent(ServerStartEvent e) {
+                // Setting server instance to static variable SERVER, so it can be accessible everywhere in code
+                InstaHouseMod.SERVER = e.server;
+            }
+        });
+
         // Register our items
         ItemRegistry.registerItem("instahouse", new InstaHouseItem(10, true), 10, true);
     }

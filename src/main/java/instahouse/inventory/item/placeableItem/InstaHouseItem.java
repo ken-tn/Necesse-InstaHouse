@@ -1,5 +1,6 @@
 package instahouse.inventory.item.placeableItem;
 
+import instahouse.InstaHouseMod;
 import instahouse.presets.InstaHousePreset;
 import necesse.engine.localization.Localization;
 import necesse.engine.network.gameNetworkData.GNDItemMap;
@@ -15,6 +16,8 @@ import necesse.inventory.PlayerInventorySlot;
 import necesse.inventory.item.placeableItem.PlaceableItem;
 import necesse.level.maps.Level;
 import necesse.level.maps.presets.Preset;
+
+import static necesse.level.maps.presets.PresetUtils.placeAndSendPresetToClients;
 
 public class InstaHouseItem extends PlaceableItem {
     public InstaHouseItem(int stackSize, boolean singleUse) {
@@ -38,9 +41,8 @@ public class InstaHouseItem extends PlaceableItem {
     @Override
     public InventoryItem onPlace(Level level, int x, int y, PlayerMob player, int seed, InventoryItem item, GNDItemMap mapContent) {
         Preset HousePreset = new InstaHousePreset();
-        HousePreset.applyToLevel(level, x / 32, y / 32);
         if (level.isServer()) {
-            //placeAndSendPresetToClients(server, HousePreset)
+            placeAndSendPresetToClients(InstaHouseMod.SERVER, HousePreset, level, x / 32, y / 32);
         } else {
             SoundManager.playSound(GameResources.tap, SoundEffect.effect((float)(x + 16), (float)(y + 16)));
         }
