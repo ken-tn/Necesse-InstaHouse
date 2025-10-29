@@ -3,8 +3,11 @@ package instahouse.inventory.item.placeableItem;
 import instahouse.presets.InstaHousePreset;
 import necesse.engine.localization.Localization;
 import necesse.engine.network.gameNetworkData.GNDItemMap;
+import necesse.engine.sound.SoundEffect;
+import necesse.engine.sound.SoundManager;
 import necesse.engine.util.GameBlackboard;
 import necesse.entity.mobs.PlayerMob;
+import necesse.gfx.GameResources;
 import necesse.gfx.camera.GameCamera;
 import necesse.gfx.gameTooltips.ListGameTooltips;
 import necesse.inventory.InventoryItem;
@@ -36,9 +39,11 @@ public class InstaHouseItem extends PlaceableItem {
     public InventoryItem onPlace(Level level, int x, int y, PlayerMob player, int seed, InventoryItem item, GNDItemMap mapContent) {
         Preset HousePreset = new InstaHousePreset();
         HousePreset.applyToLevel(level, x / 32, y / 32);
-//        if (level.isServer()) {
-//            placeAndSendPresetToClients(server, HousePreset)
-//        }
+        if (level.isServer()) {
+            //placeAndSendPresetToClients(server, HousePreset)
+        } else {
+            SoundManager.playSound(GameResources.tap, SoundEffect.effect((float)(x + 16), (float)(y + 16)));
+        }
 
         if (this.isSingleUse(player)) {
             item.setAmount(item.getAmount() - 1);
