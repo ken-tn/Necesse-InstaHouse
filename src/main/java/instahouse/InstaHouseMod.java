@@ -65,7 +65,8 @@ public class InstaHouseMod {
                 .addSpace(8)
 
                 .addTextSeparator("Server Settings")
-                .addBooleanSetting("client_preset_allowed", false)
+                .addBooleanSetting("client_preset_allowed", true)
+                .addBooleanSetting("moderators_only", true)
                 .addStringSetting("server_preset", InstaHousePreset.DefaultHousePreset, 0, false);
 
         customModSettings.addServerSettings("client_preset_allowed", "server_preset");
