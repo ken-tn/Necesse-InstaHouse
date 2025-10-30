@@ -1,6 +1,7 @@
 package instahouse.inventory.item.placeableItem;
 
 import instahouse.InstaHouseMod;
+import instahouse.PresetPacket;
 import instahouse.presets.InstaHousePreset;
 import necesse.engine.localization.Localization;
 import necesse.engine.network.client.Client;
@@ -16,8 +17,6 @@ import necesse.inventory.InventoryItem;
 import necesse.inventory.PlayerInventorySlot;
 import necesse.inventory.item.placeableItem.PlaceableItem;
 import necesse.level.maps.Level;
-
-import static necesse.level.maps.presets.PresetUtils.placePresetFromClient;
 
 public class InstaHouseItem extends PlaceableItem {
     public InstaHouseItem(int stackSize, boolean singleUse) {
@@ -49,15 +48,21 @@ public class InstaHouseItem extends PlaceableItem {
     @Override
     public InventoryItem onPlace(Level level, int x, int y, PlayerMob player, int seed, InventoryItem item, GNDItemMap mapContent) {
         if (level.isClient()) {
-            InstaHousePreset HousePreset;
             Client client = level.getClient();
-            if (InstaHousePreset.IsAllowedClientPreset(client)) {
-                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("preset"));
-            } else {
-                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("server_preset"));
+            String script = InstaHouseMod.SettingsGetter.getString("server_preset");
+            boolean useClientPreset = InstaHousePreset.IsAllowedClientPreset(client);
+            if (useClientPreset) {
+                script = InstaHouseMod.SettingsGetter.getString("preset");
             }
 
-            placePresetFromClient(client, HousePreset, x / 32, y / 32);
+            // Send preset request to server
+            client.network.sendPacket(new PresetPacket(
+                    client,
+                    x / 32,
+                    y / 32,
+                    script,
+                    useClientPreset
+            ));
 
             SoundManager.playSound(GameResources.tap, SoundEffect.effect((float) (x + 16), (float) (y + 16)));
         }

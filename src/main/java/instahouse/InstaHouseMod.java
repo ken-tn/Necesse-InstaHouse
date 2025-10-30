@@ -17,6 +17,8 @@ public class InstaHouseMod {
     public void init() {
         // Register our items
         ItemRegistry.registerItem("instahouse", new InstaHouseItem(10, true), 10, true);
+
+        PacketRegistry.registerPacket(PresetPacket.class);
     }
 
     public void initResources() {
