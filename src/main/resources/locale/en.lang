@@ -3,3 +3,14 @@ instahouse=InstaHouse
 
 [itemtooltip]
 instahousetip=Places a settler house instantly
+
+[settingsui]
+preset=Preset
+client_preset_allowed=Client Preset Allowed
+server_preset=Server Preset
+
+customhealthbar=Enabled
+healthbartitle=Title
+healthbarsize=Size
+healthbardisplay=Tyle
+healthbarcolor=Background Color

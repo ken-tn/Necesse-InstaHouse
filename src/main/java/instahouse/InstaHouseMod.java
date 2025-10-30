@@ -1,9 +1,13 @@
 package instahouse;
 
+import customsettingslib.settings.CustomModSettings;
+import customsettingslib.settings.CustomModSettingsGetter;
 import instahouse.inventory.item.placeableItem.InstaHouseItem;
+import instahouse.presets.InstaHousePreset;
 import necesse.engine.GameEventListener;
 import necesse.engine.GameEvents;
 import necesse.engine.events.ServerStartEvent;
+import necesse.engine.modLoader.ModSettings;
 import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.network.server.Server;
 import necesse.engine.registries.*;
@@ -47,6 +51,27 @@ public class InstaHouseMod {
                 1,
                 RecipeTechRegistry.WORKSTATION,
                 ingredientsFromScript("{{anylog, 68}, {anystone, 254}, {wool, 20}, {torch, 3}}")
-        ).showAfter("craftingguide")); // Show recipe after wood boat recipe
+        ).showAfter("craftingguide"));
+    }
+
+    // Initialize settings from CustomSettingsLib
+    public static CustomModSettingsGetter SettingsGetter;
+    // Generated from preset tool (creative)
+    public ModSettings initSettings() {
+        CustomModSettings customModSettings = new CustomModSettings()
+                .addTextSeparator("Settings")
+                .addStringSetting("preset", InstaHousePreset.DefaultHousePreset, 0, false)
+
+                .addSpace(8)
+
+                .addTextSeparator("Server Settings")
+                .addBooleanSetting("client_preset_allowed", false)
+                .addStringSetting("server_preset", InstaHousePreset.DefaultHousePreset, 0, false);
+
+        customModSettings.addServerSettings("client_preset_allowed", "server_preset");
+
+        SettingsGetter = customModSettings.getGetter();
+
+        return customModSettings;
     }
 }
