@@ -3,6 +3,7 @@ package instahouse.inventory.item.placeableItem;
 import instahouse.InstaHouseMod;
 import instahouse.presets.InstaHousePreset;
 import necesse.engine.localization.Localization;
+import necesse.engine.network.client.Client;
 import necesse.engine.network.gameNetworkData.GNDItemMap;
 import necesse.engine.sound.SoundEffect;
 import necesse.engine.sound.SoundManager;
@@ -15,9 +16,8 @@ import necesse.inventory.InventoryItem;
 import necesse.inventory.PlayerInventorySlot;
 import necesse.inventory.item.placeableItem.PlaceableItem;
 import necesse.level.maps.Level;
-import necesse.level.maps.presets.Preset;
 
-import static necesse.level.maps.presets.PresetUtils.placeAndSendPresetToClients;
+import static necesse.level.maps.presets.PresetUtils.placePresetFromClient;
 
 public class InstaHouseItem extends PlaceableItem {
     public InstaHouseItem(int stackSize, boolean singleUse) {
@@ -33,18 +33,27 @@ public class InstaHouseItem extends PlaceableItem {
 
     @Override
     public void drawPlacePreview(Level level, int x, int y, GameCamera camera, PlayerMob player, InventoryItem item, PlayerInventorySlot slot) {
-        Preset HousePreset = new InstaHousePreset();
+        InstaHousePreset HousePreset = new InstaHousePreset();
+        if (level.isClient()) {
+            Client client = level.getClient();
+            int permissionLevel = client.getPermissionLevel().getLevel();
+            HousePreset.ApplyUpdate(permissionLevel, InstaHouseMod.SettingsGetter.getString("preset"));
+        }
         // for some reason we need to divide by 32
         HousePreset.drawPlacePreview(level, x / 32, y / 32, player, camera);
     }
 
     @Override
     public InventoryItem onPlace(Level level, int x, int y, PlayerMob player, int seed, InventoryItem item, GNDItemMap mapContent) {
-        Preset HousePreset = new InstaHousePreset();
-        if (level.isServer()) {
-            placeAndSendPresetToClients(InstaHouseMod.SERVER, HousePreset, level, x / 32, y / 32);
-        } else {
-            SoundManager.playSound(GameResources.tap, SoundEffect.effect((float)(x + 16), (float)(y + 16)));
+        InstaHousePreset HousePreset = new InstaHousePreset();
+        if (level.isClient()) {
+            Client client = level.getClient();
+            int permissionLevel = client.getPermissionLevel().getLevel();
+            HousePreset.ApplyUpdate(permissionLevel, InstaHouseMod.SettingsGetter.getString("preset"));
+
+            placePresetFromClient(client, HousePreset, x / 32, y / 32);
+
+            SoundManager.playSound(GameResources.tap, SoundEffect.effect((float) (x + 16), (float) (y + 16)));
         }
 
         if (this.isSingleUse(player)) {

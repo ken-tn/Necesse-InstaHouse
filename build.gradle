@@ -7,7 +7,7 @@ plugins {
 
 project.ext.modID = "kent.instahouse" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "InstaHouse" // The display name of your mod.
-project.ext.modVersion = "1.02" // Your current builds version. Must follow the xx.xx... format.
+project.ext.modVersion = "1.1" // Your current builds version. Must follow the xx.xx... format.
 project.ext.gameVersion = "1.0.2" // The target game version.
 project.ext.modDescription = "Adds recipe for an InstaHouse" // Short description of what your mod is.
 project.ext.author = "Kent" // Your name

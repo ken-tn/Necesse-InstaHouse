@@ -5,13 +5,10 @@ instahouse=InstaHouse
 instahousetip=Places a settler house instantly
 
 [settingsui]
-preset=Preset
-client_preset_allowed=Client Preset Allowed
-moderators_only=Limited to Moderators (Client Preset Allowed must be on)
-server_preset=Server Preset
+preset=Custom House Preset
+client_preset_allowed=Client House Preset Allowed
+moderators_only=Client House Preset Limited to Moderators
+server_preset=Default House
 
-customhealthbar=Enabled
-healthbartitle=Title
-healthbarsize=Size
-healthbardisplay=Tyle
-healthbarcolor=Background Color
+settings_title=Settings
+server_settings_title=Server Settings

@@ -4,12 +4,8 @@ import customsettingslib.settings.CustomModSettings;
 import customsettingslib.settings.CustomModSettingsGetter;
 import instahouse.inventory.item.placeableItem.InstaHouseItem;
 import instahouse.presets.InstaHousePreset;
-import necesse.engine.GameEventListener;
-import necesse.engine.GameEvents;
-import necesse.engine.events.ServerStartEvent;
 import necesse.engine.modLoader.ModSettings;
 import necesse.engine.modLoader.annotations.ModEntry;
-import necesse.engine.network.server.Server;
 import necesse.engine.registries.*;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
@@ -18,18 +14,7 @@ import static necesse.inventory.recipe.Recipes.ingredientsFromScript;
 
 @ModEntry
 public class InstaHouseMod {
-    public static Server SERVER;
-
     public void init() {
-        // Register ServerStartEvent event listener to obtain server instance
-        GameEvents.addListener(ServerStartEvent.class, new GameEventListener<ServerStartEvent>() {
-            @Override
-            public void onEvent(ServerStartEvent e) {
-                // Setting server instance to static variable SERVER, so it can be accessible everywhere in code
-                InstaHouseMod.SERVER = e.server;
-            }
-        });
-
         // Register our items
         ItemRegistry.registerItem("instahouse", new InstaHouseItem(10, true), 10, true);
     }
@@ -59,17 +44,17 @@ public class InstaHouseMod {
     // Generated from preset tool (creative)
     public ModSettings initSettings() {
         CustomModSettings customModSettings = new CustomModSettings()
-                .addTextSeparator("Settings")
+                .addTextSeparator("settings_title")
                 .addStringSetting("preset", InstaHousePreset.DefaultHousePreset, 0, false)
 
-                .addSpace(8)
+                .addSpace(16)
 
-                .addTextSeparator("Server Settings")
+                .addTextSeparator("server_settings_title")
                 .addBooleanSetting("client_preset_allowed", true)
                 .addBooleanSetting("moderators_only", true)
                 .addStringSetting("server_preset", InstaHousePreset.DefaultHousePreset, 0, false);
 
-        customModSettings.addServerSettings("client_preset_allowed", "server_preset");
+        customModSettings.addServerSettings("client_preset_allowed", "moderators_only", "server_preset");
 
         SettingsGetter = customModSettings.getGetter();
 
