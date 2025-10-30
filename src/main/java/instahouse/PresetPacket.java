@@ -67,7 +67,7 @@ public class PresetPacket extends Packet {
     @Override
     public void processClient(NetworkPacket packet, Client client) {
         // Client receives this when server sends preset to place
-        if (!useClientPreset && presetScript != null && !presetScript.isEmpty()) {
+        if (presetScript != null && !presetScript.isEmpty()) {
             // Create and place the preset on client side
             InstaHousePreset housePreset = new InstaHousePreset(presetScript);
             placePresetFromClient(client, housePreset, tileX, tileY);
@@ -77,7 +77,7 @@ public class PresetPacket extends Packet {
     @Override
     public void processServer(NetworkPacket packet, Server server, ServerClient client) {
         // Server receives preset request from client
-        if (useClientPreset && presetScript != null && !presetScript.isEmpty()) {
+        if (presetScript != null && !presetScript.isEmpty()) {
             // Create the preset and place it
             InstaHousePreset housePreset = new InstaHousePreset(presetScript);
 
