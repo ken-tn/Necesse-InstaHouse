@@ -33,23 +33,29 @@ public class InstaHouseItem extends PlaceableItem {
 
     @Override
     public void drawPlacePreview(Level level, int x, int y, GameCamera camera, PlayerMob player, InventoryItem item, PlayerInventorySlot slot) {
-        InstaHousePreset HousePreset = new InstaHousePreset();
         if (level.isClient()) {
+            InstaHousePreset HousePreset;
             Client client = level.getClient();
-            int permissionLevel = client.getPermissionLevel().getLevel();
-            HousePreset.ApplyUpdate(permissionLevel, InstaHouseMod.SettingsGetter.getString("preset"));
+            if (InstaHousePreset.IsAllowedClientPreset(client)) {
+                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("preset"));
+            } else {
+                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("server_preset"));
+            }
+            // for some reason we need to divide by 32
+            HousePreset.drawPlacePreview(level, x / 32, y / 32, player, camera);
         }
-        // for some reason we need to divide by 32
-        HousePreset.drawPlacePreview(level, x / 32, y / 32, player, camera);
     }
 
     @Override
     public InventoryItem onPlace(Level level, int x, int y, PlayerMob player, int seed, InventoryItem item, GNDItemMap mapContent) {
-        InstaHousePreset HousePreset = new InstaHousePreset();
         if (level.isClient()) {
+            InstaHousePreset HousePreset;
             Client client = level.getClient();
-            int permissionLevel = client.getPermissionLevel().getLevel();
-            HousePreset.ApplyUpdate(permissionLevel, InstaHouseMod.SettingsGetter.getString("preset"));
+            if (InstaHousePreset.IsAllowedClientPreset(client)) {
+                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("preset"));
+            } else {
+                HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("server_preset"));
+            }
 
             placePresetFromClient(client, HousePreset, x / 32, y / 32);
 

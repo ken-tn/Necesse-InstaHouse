@@ -27,7 +27,7 @@ project.ext.clientside = false
 //project.ext.modDependencies = ["other.modid1", "other.modid2"]
 //project.ext.modOptionalDependencies = ["optional.modid1", "optional.modid2"]
 //project.ext.modOptionalDependencies = ["aizsave.customsettingslib"]
-project.ext.modDependencies = ["aizsave.customsettingslib"]
+project.ext.modDependencies = ["aizsave.modsettingslib"]
 
 // The path to the games install directory
 def gameDirectory = "G:/SteamLibrary/steamapps/common/Necesse"
