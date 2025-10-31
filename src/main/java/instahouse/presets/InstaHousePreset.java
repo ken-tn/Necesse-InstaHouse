@@ -12,12 +12,12 @@ public class InstaHousePreset extends Preset {
         super(script);
     }
 
-    public static boolean IsAllowedClientPreset(Client client) {
-        // Are client presets enabled?
+    public static boolean IsAllowedPreset(PermissionLevel permissionLevel) {
+        // Are presets enabled?
         if (InstaHouseMod.SettingsGetter.getBoolean("client_preset_allowed")) {
             // Only moderators can change their client preset?
             if (InstaHouseMod.SettingsGetter.getBoolean("moderators_only")) {
-                return client.getPermissionLevel().getLevel() >= PermissionLevel.MODERATOR.getLevel();
+                return permissionLevel.getLevel() >= PermissionLevel.MODERATOR.getLevel();
             } else {
                 return true;
             }

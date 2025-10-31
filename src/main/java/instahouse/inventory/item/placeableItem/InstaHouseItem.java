@@ -35,7 +35,7 @@ public class InstaHouseItem extends PlaceableItem {
         if (level.isClient()) {
             InstaHousePreset HousePreset;
             Client client = level.getClient();
-            if (InstaHousePreset.IsAllowedClientPreset(client)) {
+            if (InstaHousePreset.IsAllowedPreset(client.getPermissionLevel())) {
                 HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("preset"));
             } else {
                 HousePreset = new InstaHousePreset(InstaHouseMod.SettingsGetter.getString("server_preset"));
@@ -50,7 +50,7 @@ public class InstaHouseItem extends PlaceableItem {
         if (level.isClient()) {
             Client client = level.getClient();
             String script = InstaHouseMod.SettingsGetter.getString("server_preset");
-            boolean useClientPreset = InstaHousePreset.IsAllowedClientPreset(client);
+            boolean useClientPreset = InstaHousePreset.IsAllowedPreset(client.getPermissionLevel());
             if (useClientPreset) {
                 script = InstaHouseMod.SettingsGetter.getString("preset");
             }
@@ -60,8 +60,7 @@ public class InstaHouseItem extends PlaceableItem {
                     client,
                     x / 32,
                     y / 32,
-                    script,
-                    useClientPreset
+                    script
             ));
 
             SoundManager.playSound(GameResources.tap, SoundEffect.effect((float) (x + 16), (float) (y + 16)));
