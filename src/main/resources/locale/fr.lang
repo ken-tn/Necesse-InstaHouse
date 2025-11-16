@@ -1,0 +1,20 @@
+# Traduction réalisée par Caranud (https://steamcommunity.com/id/Caranud/)
+# Version de mod : 1.13 [31/10/25]
+# Version de jeu : 1.0.2
+# Date de la dernière traduction : 16/11/2025
+# Note de Caranud : n’hésitez pas à reprendre cette traduction si je ne suis plus actif et disponible depuis un moment ! :) Je suis également sur le serveur Discord (https://discord.com/invite/HSvuUuA).
+
+[item]
+instahouse=Kit de maison instantannée
+
+[itemtooltip]
+instahousetip=Place une maison de colon immédiatemment. Le coût regroupe toutes les ressources nécessaires.
+
+[settingsui]
+preset=Préselection personnalisée
+client_preset_allowed=Autoriser la préselection de maison personnalisée
+moderators_only=Limiter la préselection de maison aux modérateurs
+server_preset=Maison par défaut
+
+settings_title=Paramètres de présélection de maison
+server_settings_title=Paramètres de serveur
